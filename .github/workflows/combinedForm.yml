@@ -4,13 +4,15 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Create Combined Notebook
         run: |
@@ -26,8 +28,8 @@ jobs:
         run: |
           git config --global user.name "Zquinlan"
           git config --global user.email "zquinlan@gmail.com"
-          git add Combined_Notebooks/Automated_Combined_Notebook.ipynb
-          git commit -m "Update combined motebook notebook"
+          git add -A
+          git commit -a -m "Update combined motebook notebook"
           
           git remote set-url origin https://github.com/Zquinlan/FBMN-STATS
           git push origin HEAD:${{ github.ref }} --force
