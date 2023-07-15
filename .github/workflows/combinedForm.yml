@@ -22,9 +22,9 @@ jobs:
           
       - name: Commit Changes
         env:
-            PAT: ${{ secrets.PATPUSH }}
+            PAT: ${{ secrets.PatPush }}
         run: |
-          git config --global user.name "zquinlan"
+          git config --global user.name "Zquinlan"
           git config --global user.email "zquinlan@gmail.com"
           git add Combined_Notebooks/Automated_Combined_Notebook.ipynb
           git commit -m "Update combined motebook notebook"
