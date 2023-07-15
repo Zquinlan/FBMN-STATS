@@ -17,9 +17,9 @@ jobs:
       - name: Create Combined Notebook
         run: |
           echo "" > Combined_Notebooks/Automated_Combined_Notebook.ipynb
-          cat Individual_Notebooks/Python-Notebooks/data-cleanup.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
-          cat Individual_Notebooks/Python-Notebooks/clustering.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
-          cat Individual_Notebooks/Python-Notebooks/pcoa.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
+          sed '$ d' Individual_Notebooks/Python-Notebooks/data-cleanup.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
+          sed '$ d' Individual_Notebooks/Python-Notebooks/clustering.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
+          sed '$ d' Individual_Notebooks/Python-Notebooks/pcoa.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
           cat Individual_Notebooks/Python-Notebooks/univariate-statistics.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
           
       - name: Commit Changes
