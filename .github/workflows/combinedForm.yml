@@ -20,10 +20,10 @@ jobs:
           cat Individual_Notebooks/Python-Notebooks/pcoa.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
           cat Individual_Notebooks/Python-Notebooks/univariate-statistics.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
           
-      - name: Commit & Push
-        uses: Andro999b/push@v1.3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-          force: true
-          message: 'Overwritten by Github Actions - ${date}'
+      - name: Commit Changes
+        run: |
+          git config --global user.name "zquinlan"
+          git config --global user.email "zquinlan@gmail.com"
+          git add Combined_Notebooks/Automated_Combined_Notebook.ipynb
+          git commit -m "Update combined motebook notebook"
+          git push origin HEAD:${{ github.ref }} --force
