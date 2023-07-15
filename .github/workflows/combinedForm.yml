@@ -12,19 +12,18 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Overwrite file
-        uses: "DamianReeves/write-file-actions@master"
-        with:
-          path: ${{ github.workspace }}/Combined_Notebooks/Combined_Analysis.ipynb
-          write-mode: overwrite
-          contents: |
-          ${{ github.workspace }}/Individual_Notebooks/Python-Notebooks/data-cleanup.ipynb
-          ${{ github.workspace }}/Individual_Notebooks/Python-Notebooks/clustering.ipynb
-      
+      - name: Create Combined Notebook
+        run: |
+          echo "" > Combined_Notebook.ipynb
+          cat file1.py >> Combined_Notebook.ipynb
+          cat file2.py >> Combined_Notebook.ipynb
+          cat file3.py >> Combined_Notebook.ipynb
+          cat file4.py >> Combined_Notebook.ipynb
+          
       - name: Commit & Push
         uses: Andro999b/push@v1.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main 
+          branch: main
           force: true
-          message: 'Overwritten by Github Actions - ${date}' 
+          message: 'Overwritten by Github Actions - ${date}'
