@@ -14,6 +14,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      # Setting up python and installing the dependencies to create the combined notebook (nbmerge and nbformat)
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -24,10 +25,13 @@ jobs:
         with:
           path: ".github/workflows/requirements.txt"
 
+      # Joining together the .ipynb files in the Individual_Notebooks directory to form a single notebook in the Combined_Notebooks/ directory
+      # Currently it is ordered as data cleanup, cluster, pcoa, univeratiate statistics
       - name: Create Combined Notebook
         run: |
           nbmerge Individual_Notebooks/Python-Notebooks/data-cleanup.ipynb Individual_Notebooks/Python-Notebooks/clustering.ipynb Individual_Notebooks/Python-Notebooks/pcoa.ipynb Individual_Notebooks/Python-Notebooks/univariate-statistics.ipynb > Combined_Notebooks/Automated_Combined_Notebook.ipynb
-          
+      
+      # Committing changes
       - name: Commit Changes
         env:
             PAT: ${{ secrets.PatPush }}
