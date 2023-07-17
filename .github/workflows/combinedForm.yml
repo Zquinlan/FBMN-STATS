@@ -14,13 +14,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v3
+        with:
+          path: ".github/workflows/requirements.txt"
+
       - name: Create Combined Notebook
         run: |
-          echo "" > Combined_Notebooks/Automated_Combined_Notebook.ipynb
-          sed '$ d' Individual_Notebooks/Python-Notebooks/data-cleanup.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
-          sed '1d;$d' Individual_Notebooks/Python-Notebooks/clustering.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
-          sed '1d;$d' Individual_Notebooks/Python-Notebooks/pcoa.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
-          sed '1d' Individual_Notebooks/Python-Notebooks/univariate-statistics.ipynb >> Combined_Notebooks/Automated_Combined_Notebook.ipynb
+          nbmerge Individual_Notebooks/Python-Notebooks/data-cleanup.ipynb Individual_Notebooks/Python-Notebooks/clustering.ipynb Individual_Notebooks/Python-Notebooks/pcoa.ipynb Individual_Notebooks/Python-Notebooks/univariate-statistics.ipynb > Combined_Notebooks/Automated_Combined_Notebook.ipynb
           
       - name: Commit Changes
         env:
